@@ -49,11 +49,8 @@ export class LoginComponent {
       },
       error: (err) => {
         this.isLoading = false;
-        const message = err.status === 401
-          ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة'
-          : 'حصل خطأ، حاول تاني';
-        this.errorMessage = message;
-        this.notification.showError(message);
+        
+        
       }
     });
   }
