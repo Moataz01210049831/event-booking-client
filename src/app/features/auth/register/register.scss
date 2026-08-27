@@ -1,0 +1,157 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 32px 16px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 176, 59, 0.10) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(255, 176, 59, 0.06) 0%, transparent 40%),
+    #12141f;
+  font-family: 'Inter', sans-serif;
+}
+
+// ===== Ticket-stub card =====
+.ticket {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: #191c29;
+  border-radius: 18px;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+  overflow: visible;
+}
+
+.ticket-header {
+  padding: 36px 32px 20px;
+  text-align: center;
+
+  .eyebrow {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ffb03b;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #f5f4f0;
+    margin: 0 0 6px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #8b8fa3;
+    margin: 0;
+  }
+}
+
+// perforated divider — the signature element
+.ticket-divider {
+  position: relative;
+  height: 1px;
+  margin: 4px 0 0;
+  border-top: 2px dashed #33374a;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -12px;
+    width: 24px;
+    height: 24px;
+    background: #12141f;
+    border-radius: 50%;
+  }
+  &::before { left: -12px; }
+  &::after { right: -12px; }
+}
+
+.ticket-body {
+  padding: 28px 32px 32px;
+}
+
+.field {
+  width: 100%;
+  margin-bottom: 6px;
+
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper { background: #12141f; border-radius: 10px; }
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing { border-color: #2b2f42 !important; }
+    .mat-mdc-form-field-label,
+    .mdc-floating-label { color: #6d7188 !important; }
+    .mat-mdc-input-element { color: #f5f4f0; }
+    &.mat-focused {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing { border-color: #ffb03b !important; }
+      .mdc-floating-label { color: #ffb03b !important; }
+    }
+  }
+}
+
+.error-message {
+  background: rgba(255, 90, 90, 0.1);
+  border: 1px solid rgba(255, 90, 90, 0.3);
+  color: #ff8080;
+  font-size: 13px;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 4px 0 16px;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 48px;
+  border-radius: 10px !important;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  background: #ffb03b !important;
+  color: #191c29 !important;
+  margin-top: 8px;
+
+  &:disabled {
+    background: #3a3d4d !important;
+    color: #6d7188 !important;
+  }
+}
+
+.footer-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #6d7188;
+
+  a {
+    color: #ffb03b;
+    text-decoration: none;
+    font-weight: 600;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ticket {
+    animation: rise 0.5s ease-out;
+  }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
