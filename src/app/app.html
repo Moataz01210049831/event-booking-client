@@ -1,1 +1,21 @@
+<header class="app-header">
+  <a routerLink="/" class="logo">
+    <span class="logo-icon">🎫</span>
+    <span class="logo-text">Event Booking</span>
+  </a>
+
+  <div class="header-actions">
+    @if (authService.isLoggedIn()) {
+      <span class="welcome-text">أهلاً، {{ authService.currentUser()?.fullName }}</span>
+      <button mat-stroked-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        تسجيل الخروج
+      </button>
+    } @else {
+      <a mat-stroked-button routerLink="/login">تسجيل الدخول</a>
+      <a mat-raised-button class="register-btn" routerLink="/register">إنشاء حساب</a>
+    }
+  </div>
+</header>
+
 <router-outlet></router-outlet>

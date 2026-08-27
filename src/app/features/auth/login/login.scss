@@ -93,7 +93,10 @@
     .mdc-notched-outline__trailing { border-color: #2b2f42 !important; }
     .mat-mdc-form-field-label,
     .mdc-floating-label { color: #6d7188 !important; }
-    .mat-mdc-input-element { color: #f5f4f0; }
+    .mat-mdc-input-element {
+      color: #fff !important;
+      caret-color: #fff;
+    }
     &.mat-focused {
       .mdc-notched-outline__leading,
       .mdc-notched-outline__notch,

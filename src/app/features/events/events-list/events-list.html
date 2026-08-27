@@ -1,0 +1,60 @@
+<div class="events-page">
+
+  <header class="page-header">
+    <span class="eyebrow">Event Booking</span>
+    <h1>الفعاليات القادمة</h1>
+    <p>اختار الحدث اللي يعجبك واحجز مكانك دلوقتي</p>
+  </header>
+
+  @if (isLoading()) {
+    <div class="state-message">جاري تحميل الفعاليات...</div>
+  } @else if (events().length === 0) {
+    <div class="state-message">مفيش فعاليات متاحة دلوقتي</div>
+  } @else {
+    <div class="events-grid">
+      @for (event of events(); track event.id) {
+        <div class="event-ticket">
+          <div class="ticket-image">
+            @if (event.imageUrl) {
+              <img [src]="event.imageUrl" [alt]="event.title">
+            } @else {
+              <div class="image-placeholder">
+                <mat-icon>event</mat-icon>
+              </div>
+            }
+            <span class="category-badge">{{ event.categoryName }}</span>
+          </div>
+
+          <div class="ticket-stub-line">
+            <span class="notch left"></span>
+            <span class="notch right"></span>
+          </div>
+
+          <div class="ticket-info">
+            <h2>{{ event.title }}</h2>
+
+            <div class="meta-row">
+              <mat-icon>calendar_today</mat-icon>
+              <span>{{ event.startDateUtc | date:'EEEE، d MMMM y - h:mm a' }}</span>
+            </div>
+
+            <div class="meta-row">
+              <mat-icon>location_on</mat-icon>
+              <span>{{ event.hallName }} — {{ event.locationName }}</span>
+            </div>
+
+            <div class="meta-row">
+              <mat-icon>event_seat</mat-icon>
+              <span>{{ event.availableSeatsCount }} مقعد متاح</span>
+            </div>
+
+            <button mat-raised-button class="book-btn" [routerLink]="['/events', event.id]">
+              احجز الآن
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</div>

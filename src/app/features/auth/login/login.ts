@@ -6,29 +6,24 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../core/Services/auth.service';
+import { NotificationService } from '../../../core/Services/notification.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterLink,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, MatFormFieldModule, MatInputModule, MatButtonModule],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  errorMessage = '';
   isLoading = false;
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private notification: NotificationService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -49,13 +44,16 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
         this.isLoading = false;
+        this.notification.showSuccess('تم تسجيل الدخول بنجاح');
         this.router.navigate(['/']);
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = err.status === 401
+        const message = err.status === 401
           ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة'
           : 'حصل خطأ، حاول تاني';
+        this.errorMessage = message;
+        this.notification.showError(message);
       }
     });
   }

@@ -1,0 +1,52 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: #191c29;
+  border-bottom: 1px solid #2b2f42;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+
+  .logo-icon {
+    font-size: 22px;
+  }
+
+  .logo-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #f5f4f0;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .welcome-text {
+    color: #9599ad;
+    font-size: 14px;
+    margin-left: 8px;
+  }
+
+  a[mat-stroked-button],
+  button[mat-stroked-button] {
+    color: #f5f4f0 !important;
+    border-color: #3a3d4d !important;
+  }
+
+  .register-btn {
+    background: #ffb03b !important;
+    color: #191c29 !important;
+  }
+}

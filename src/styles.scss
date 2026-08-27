@@ -37,3 +37,14 @@ body {
   height: 100%;
 }
 /* You can add global styles to this file, and also import other style files */
+
+
+.toast-error {
+  --mdc-snackbar-container-color: #2a1518;
+  --mdc-snackbar-supporting-text-color: #ff8080;
+}
+
+.toast-success {
+  --mdc-snackbar-container-color: #14261a;
+  --mdc-snackbar-supporting-text-color: #4ade80;
+}
