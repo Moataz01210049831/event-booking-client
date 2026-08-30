@@ -1,0 +1,80 @@
+<div class="details-page">
+
+  @if (isLoading()) {
+    <div class="state-message">جاري التحميل...</div>
+  } @else if (!event()) {
+    <div class="state-message">الحدث غير موجود</div>
+  } @else {
+    <div class="details-container">
+
+      <!-- Event Info Header -->
+      <div class="event-header">
+        <span class="category-badge">{{ event()!.categoryName }}</span>
+        <h1>{{ event()!.title }}</h1>
+        <p class="description">{{ event()!.description }}</p>
+
+        <div class="meta-grid">
+          <div class="meta-item">
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ event()!.startDateUtc | date:'EEEE، d MMMM y - h:mm a' }}</span>
+          </div>
+          <div class="meta-item">
+            <mat-icon>location_on</mat-icon>
+            <span>{{ event()!.hallName }} — {{ event()!.locationName }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seat Map -->
+      <div class="seat-map-section">
+        <h2>اختار مقعدك</h2>
+
+        <div class="screen-indicator">الشاشة / المنصة</div>
+
+        <div class="seat-map">
+          @for (row of seatRows; track row) {
+            <div class="seat-row">
+              <span class="row-label">{{ row }}</span>
+              <div class="seats">
+                @for (seat of seatsInRow(row); track seat.eventSeatId) {
+                  <button
+                    class="seat"
+                    [class.vip]="seat.seatType === 'VIP'"
+                    [class.selected]="isSeatSelected(seat)"
+                    [class.unavailable]="seat.status !== 'Available'"
+                    [disabled]="seat.status !== 'Available'"
+                    (click)="toggleSeat(seat)"
+                    [title]="'مقعد ' + seat.rowLabel + seat.seatNumber + ' - ' + seat.price + ' ريال'">
+                    {{ seat.seatNumber }}
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="legend">
+          <div class="legend-item"><span class="dot available"></span> متاح</div>
+          <div class="legend-item"><span class="dot vip"></span> VIP</div>
+          <div class="legend-item"><span class="dot selected"></span> مختار</div>
+          <div class="legend-item"><span class="dot unavailable"></span> محجوز</div>
+        </div>
+      </div>
+
+      <!-- Booking Summary -->
+      @if (selectedSeats().length > 0) {
+        <div class="booking-summary">
+          <div class="summary-info">
+            <span>{{ selectedSeats().length }} مقعد مختار</span>
+            <span class="total-price">{{ totalPrice }} ريال</span>
+          </div>
+         <button mat-raised-button class="confirm-btn" [disabled]="isBooking()" (click)="onConfirmBooking()">
+  {{ isBooking() ? 'جاري الحجز...' : 'متابعة الحجز' }}
+</button>
+        </div>
+      }
+
+    </div>
+  }
+
+</div>
