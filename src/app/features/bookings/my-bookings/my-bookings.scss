@@ -1,0 +1,141 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.bookings-page {
+  min-height: 100vh;
+  padding: 48px 24px;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255, 176, 59, 0.08) 0%, transparent 45%),
+    #12141f;
+  font-family: 'Inter', sans-serif;
+}
+
+.page-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 40px;
+
+  .eyebrow {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ffb03b;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #f5f4f0;
+    margin: 0 0 8px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #8b8fa3;
+    margin: 0;
+  }
+}
+
+.state-message {
+  text-align: center;
+  color: #6d7188;
+  font-size: 15px;
+  padding: 60px 0;
+}
+
+.bookings-list {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.booking-card {
+  background: #191c29;
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #f5f4f0;
+    margin: 0;
+  }
+}
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+
+  &.confirmed { background: rgba(74, 222, 128, 0.15); color: #4ade80; }
+  &.pending { background: rgba(255, 176, 59, 0.15); color: #ffb03b; }
+  &.cancelled, &.expired { background: rgba(255, 90, 90, 0.15); color: #ff8080; }
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #9599ad;
+  margin-bottom: 8px;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #ffb03b;
+  }
+}
+
+.seats-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0;
+}
+
+.seat-chip {
+  background: #2b2f42;
+  color: #d4d6e0;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid #2b2f42;
+
+  .booking-date {
+    font-size: 12px;
+    color: #6d7188;
+  }
+
+  .total-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffb03b;
+  }
+}

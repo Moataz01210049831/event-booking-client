@@ -16,3 +16,16 @@ export interface BookingResponse {
   holdExpiresAtUtc: string;
   seats: BookedSeat[];
 }
+
+
+export interface MyBooking {
+  bookingId: string;
+  eventTitle: string;
+  eventStartDateUtc: string;
+  hallName: string;
+  locationName: string;
+  status: string;
+  totalAmount: number;
+  bookingDateUtc: string;
+  seats: BookedSeat[];
+}

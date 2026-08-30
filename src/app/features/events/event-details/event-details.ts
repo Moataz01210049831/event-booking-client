@@ -103,12 +103,15 @@ this.isBooking.set(true);
         this.isBooking.set(false);
         this.notification.showSuccess('تم حجز مقاعدك مؤقتًا، أكمل الحجز خلال 10 دقائق');
         // هنكمل بعدين: نروح لصفحة تأكيد الحجز/الدفع
+        this.route.navigate(['/booking-summary'], { state: { booking: response } });
         console.log('Booking created:', response);
       },
       error: () => {
         this.isBooking.set(false);
       }
     });
+
+    
   }
  
 }

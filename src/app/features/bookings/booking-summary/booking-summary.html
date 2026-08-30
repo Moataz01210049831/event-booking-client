@@ -1,0 +1,65 @@
+<div class="summary-page">
+  @if (booking(); as b) {
+    <div class="ticket">
+
+      <div class="ticket-header">
+        <span class="eyebrow">Event Booking</span>
+        @if (b.status === 'Confirmed') {
+          <h1>تم تأكيد حجزك! 🎉</h1>
+          <p>احتفظ بالتذكرة دي، هتحتاجها وقت الدخول</p>
+        } @else {
+          <h1>راجع حجزك</h1>
+          <p>أكّد الحجز قبل ما ينتهي الوقت</p>
+        }
+      </div>
+
+      <div class="ticket-divider">
+        <span class="notch left"></span>
+        <span class="notch right"></span>
+      </div>
+
+      <div class="ticket-body">
+
+        @if (b.status !== 'Confirmed') {
+          @if (!isExpired()) {
+            <div class="countdown">
+              <mat-icon>timer</mat-icon>
+              <span>الوقت المتبقي: {{ formattedTime }}</span>
+            </div>
+          } @else {
+            <div class="expired-message">
+              <mat-icon>error_outline</mat-icon>
+              <span>انتهت مهلة الحجز، من فضلك اختر المقاعد مرة أخرى</span>
+            </div>
+          }
+        }
+
+        <div class="seats-list">
+          @for (seat of b.seats; track seat.eventSeatId) {
+            <div class="seat-row">
+              <span>مقعد {{ seat.rowLabel }}{{ seat.seatNumber }}</span>
+              <span>{{ seat.price }} ريال</span>
+            </div>
+          }
+        </div>
+
+        <div class="total-row">
+          <span>الإجمالي</span>
+          <span class="total-price">{{ b.totalAmount }} ريال</span>
+        </div>
+
+        @if (b.status === 'Confirmed') {
+          <div class="status-badge confirmed">
+            <mat-icon>check_circle</mat-icon>
+            الحجز مؤكد
+          </div>
+        } @else if (!isExpired()) {
+          <button mat-raised-button class="confirm-btn" [disabled]="isConfirming()" (click)="onConfirm()">
+            {{ isConfirming() ? 'جاري التأكيد...' : 'تأكيد الحجز' }}
+          </button>
+        }
+
+      </div>
+    </div>
+  }
+</div>

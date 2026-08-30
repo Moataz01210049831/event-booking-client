@@ -7,6 +7,7 @@
   <div class="header-actions">
     @if (authService.isLoggedIn()) {
       <span class="welcome-text">أهلاً، {{ authService.currentUser()?.fullName }}</span>
+      <a mat-stroked-button routerLink="/my-bookings">حجوزاتي</a>
       <button mat-stroked-button (click)="logout()">
         <mat-icon>logout</mat-icon>
         تسجيل الخروج

@@ -1,0 +1,51 @@
+<div class="bookings-page">
+
+  <header class="page-header">
+    <span class="eyebrow">Event Booking</span>
+    <h1>حجوزاتي</h1>
+    <p>كل الفعاليات اللي حجزتها في مكان واحد</p>
+  </header>
+
+  @if (isLoading()) {
+    <div class="state-message">جاري التحميل...</div>
+  } @else if (bookings().length === 0) {
+    <div class="state-message">لسه معملتش أي حجز</div>
+  } @else {
+    <div class="bookings-list">
+      @for (booking of bookings(); track booking.bookingId) {
+        <div class="booking-card">
+
+          <div class="card-header">
+            <h2>{{ booking.eventTitle }}</h2>
+            <span class="status-badge" [class]="booking.status.toLowerCase()">
+              {{ statusLabel(booking.status) }}
+            </span>
+          </div>
+
+          <div class="meta-row">
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ booking.eventStartDateUtc | date:'EEEE، d MMMM y - h:mm a' }}</span>
+          </div>
+
+          <div class="meta-row">
+            <mat-icon>location_on</mat-icon>
+            <span>{{ booking.hallName }} — {{ booking.locationName }}</span>
+          </div>
+
+          <div class="seats-summary">
+            @for (seat of booking.seats; track seat.eventSeatId) {
+              <span class="seat-chip">{{ seat.rowLabel }}{{ seat.seatNumber }}</span>
+            }
+          </div>
+
+          <div class="card-footer">
+            <span class="booking-date">تم الحجز في {{ booking.bookingDateUtc | date:'d MMM y' }}</span>
+            <span class="total-price">{{ booking.totalAmount }} ريال</span>
+          </div>
+
+        </div>
+      }
+    </div>
+  }
+
+</div>
