@@ -54,4 +54,9 @@ export class AuthService {
       // ونجيب بيانات اليوزر منه عشان الصفحة لما تتعمل refresh
     }
   }
+
+  hasRole(role: string): boolean {
+  const roles = this.currentUser()?.roles ?? [];
+  return roles.includes(role);
+}
 }

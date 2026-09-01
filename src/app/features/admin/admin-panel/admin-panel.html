@@ -1,0 +1,157 @@
+<div class="admin-page">
+
+  <header class="page-header">
+    <span class="eyebrow">Event Booking</span>
+    <h1>لوحة التحكم</h1>
+    <p>إدارة التصنيفات والأماكن والقاعات والفعاليات</p>
+  </header>
+
+  <div class="admin-container">
+    <mat-tab-group>
+
+      <!-- Category Tab -->
+      <mat-tab label="التصنيفات">
+        <div class="tab-content">
+          <form [formGroup]="categoryForm" (ngSubmit)="submitCategory()">
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>اسم التصنيف</mat-label>
+              <input matInput formControlName="name" placeholder="مثال: Concert">
+            </mat-form-field>
+
+            <button mat-raised-button class="submit-btn" [disabled]="isSubmitting()" type="submit">
+              إضافة تصنيف
+            </button>
+          </form>
+
+          <div class="existing-list">
+            <h3>التصنيفات الحالية</h3>
+            @for (category of categories(); track category.id) {
+              <span class="chip">{{ category.name }}</span>
+            }
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- Location Tab -->
+      <mat-tab label="الأماكن">
+        <div class="tab-content">
+          <form [formGroup]="locationForm" (ngSubmit)="submitLocation()">
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>اسم المكان</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>العنوان</mat-label>
+              <input matInput formControlName="address">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>المدينة</mat-label>
+              <input matInput formControlName="city">
+            </mat-form-field>
+
+            <button mat-raised-button class="submit-btn" [disabled]="isSubmitting()" type="submit">
+              إضافة مكان
+            </button>
+          </form>
+
+          <div class="existing-list">
+            <h3>الأماكن الحالية</h3>
+            @for (location of locations(); track location.id) {
+              <span class="chip">{{ location?.name }} — {{ location.city }}</span>
+            }
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- Hall Tab -->
+      <mat-tab label="القاعات">
+        <div class="tab-content">
+          <form [formGroup]="hallForm" (ngSubmit)="submitHall()">
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>اسم القاعة</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>المكان</mat-label>
+              <mat-select formControlName="locationId">
+                @for (location of locations(); track location.id) {
+                  <mat-option [value]="location.id">{{ location.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button class="submit-btn" [disabled]="isSubmitting()" type="submit">
+              إضافة قاعة
+            </button>
+          </form>
+
+          <div class="existing-list">
+            <h3>القاعات الحالية</h3>
+            @for (hall of halls(); track hall.id) {
+              <span class="chip">{{ hall.name }} — {{ hall.locationName }}</span>
+            }
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- Event Tab -->
+      <mat-tab label="الفعاليات">
+        <div class="tab-content">
+          <form [formGroup]="eventForm" (ngSubmit)="submitEvent()">
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>عنوان الحدث</mat-label>
+              <input matInput formControlName="title">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>الوصف</mat-label>
+              <textarea matInput formControlName="description" rows="3"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>رابط الصورة (اختياري)</mat-label>
+              <input matInput formControlName="imageUrl">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>تاريخ ووقت البداية</mat-label>
+              <input matInput type="datetime-local" formControlName="startDateUtc">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>تاريخ ووقت النهاية</mat-label>
+              <input matInput type="datetime-local" formControlName="endDateUtc">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>القاعة</mat-label>
+              <mat-select formControlName="hallId">
+                @for (hall of halls(); track hall.id) {
+                  <mat-option [value]="hall.id">{{ hall.name }} — {{ hall.locationName }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>التصنيف</mat-label>
+              <mat-select formControlName="categoryId">
+                @for (category of categories(); track category.id) {
+                  <mat-option [value]="category.id">{{ category.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button class="submit-btn" [disabled]="isSubmitting()" type="submit">
+              {{ isSubmitting() ? 'جاري الإنشاء...' : 'إنشاء الحدث' }}
+            </button>
+          </form>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+
+</div>
