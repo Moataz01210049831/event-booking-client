@@ -84,6 +84,7 @@
   background: #191c29;
   border-radius: 18px;
   padding: 32px 24px;
+  overflow-x: hidden;
 
   h2 {
     font-family: 'Space Grotesk', sans-serif;
@@ -104,18 +105,21 @@
   padding-bottom: 24px;
   margin-bottom: 28px;
 }
-
 .seat-map {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;                // زودنا المسافة بين الصفوف شوية
   align-items: center;
+  max-width: 700px;          // ← حد أقصى للعرض عشان الكراسي تتلف صح
+  margin: 0 auto;
 }
-
 .seat-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;   // عدّلناها من center لـ flex-start عشان تتماشى مع الالتفاف
   gap: 10px;
+  flex-wrap: wrap;           // ← أضف السطر ده كمان
+  justify-content: center;
+  max-width: 100%;
 }
 
 .row-label {
@@ -127,8 +131,11 @@
 
 .seats {
   display: flex;
+  flex-wrap: wrap;        // ← أضف السطر ده (كان مش موجود أو كانت الكراسي بتعمل overflow)
   gap: 6px;
+  justify-content: center;
 }
+
 
 .seat {
   width: 30px;

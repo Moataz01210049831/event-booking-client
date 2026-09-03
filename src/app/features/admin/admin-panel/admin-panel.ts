@@ -34,7 +34,7 @@ export class AdminPanelComponent implements OnInit {
   locationForm: FormGroup;
   hallForm: FormGroup;
   eventForm: FormGroup;
-
+seatsForm: FormGroup;
   isSubmitting = signal(false);
 
   constructor(
@@ -57,6 +57,13 @@ export class AdminPanelComponent implements OnInit {
       locationId: ['', Validators.required]
     });
 
+     this.seatsForm = this.fb.group({
+      hallId: ['', Validators.required],
+      rowLabel: ['', Validators.required],
+      seatFrom: [1, [Validators.required, Validators.min(1)]],
+      seatTo: [10, [Validators.required, Validators.min(1)]],
+      seatType: ['Regular', Validators.required]
+    });
     this.eventForm = this.fb.group({
       title: ['', Validators.required],
       description: [''],
@@ -139,6 +146,37 @@ export class AdminPanelComponent implements OnInit {
         this.isSubmitting.set(false);
         this.notification.showSuccess('تم إنشاء الحدث بنجاح 🎉');
         this.eventForm.reset();
+      },
+      error: () => this.isSubmitting.set(false)
+    });
+  }
+
+   submitSeats(): void {
+    if (this.seatsForm.invalid) return;
+
+    const { hallId, rowLabel, seatFrom, seatTo, seatType } = this.seatsForm.value;
+
+    if (seatTo < seatFrom) {
+      this.notification.showError('رقم المقعد النهائي لازم يكون أكبر من أو يساوي البداية');
+      return;
+    }
+
+    const seats = [];
+    for (let i = seatFrom; i <= seatTo; i++) {
+      seats.push({
+        rowLabel,
+        seatNumber: i.toString(),
+        seatType
+      });
+    }
+
+    this.isSubmitting.set(true);
+
+    this.adminService.addSeats({ hallId, seats }).subscribe({
+      next: (response) => {
+        this.isSubmitting.set(false);
+        this.notification.showSuccess(`تم إضافة ${response.addedCount} مقعد بنجاح`);
+        this.seatsForm.patchValue({ rowLabel: '' });
       },
       error: () => this.isSubmitting.set(false)
     });

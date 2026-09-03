@@ -59,7 +59,7 @@
           <div class="existing-list">
             <h3>الأماكن الحالية</h3>
             @for (location of locations(); track location.id) {
-              <span class="chip">{{ location?.name }} — {{ location.city }}</span>
+              <span class="chip">{{ location.name }} — {{ location.city }}</span>
             }
           </div>
         </div>
@@ -94,6 +94,54 @@
               <span class="chip">{{ hall.name }} — {{ hall.locationName }}</span>
             }
           </div>
+        </div>
+      </mat-tab>
+
+      <!-- Seats Tab -->
+      <mat-tab label="المقاعد">
+        <div class="tab-content">
+          <form [formGroup]="seatsForm" (ngSubmit)="submitSeats()">
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>القاعة</mat-label>
+              <mat-select formControlName="hallId">
+                @for (hall of halls(); track hall.id) {
+                  <mat-option [value]="hall.id">{{ hall.name }} — {{ hall.locationName }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>اسم الصف (مثال: A)</mat-label>
+              <input matInput formControlName="rowLabel">
+            </mat-form-field>
+
+            <div class="range-row">
+              <mat-form-field appearance="outline" class="field">
+                <mat-label>من رقم</mat-label>
+                <input matInput type="number" formControlName="seatFrom">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="field">
+                <mat-label>إلى رقم</mat-label>
+                <input matInput type="number" formControlName="seatTo">
+              </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="field">
+              <mat-label>نوع المقعد</mat-label>
+              <mat-select formControlName="seatType">
+                <mat-option value="Regular">عادي</mat-option>
+                <mat-option value="VIP">VIP</mat-option>
+                <mat-option value="Accessible">لذوي الاحتياجات</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button class="submit-btn" [disabled]="isSubmitting()" type="submit">
+              إضافة الصف
+            </button>
+          </form>
+
+          <p class="hint-text">هيتم إضافة كل الكراسي من الرقم الأول للأخير في نفس الصف دفعة واحدة.</p>
         </div>
       </mat-tab>
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Category, CreateCategoryRequest, Location, CreateLocationRequest, Hall, CreateHallRequest, CreateEventRequest } from '../modals/admin.models';
+import { Category, CreateCategoryRequest, Location, CreateLocationRequest, Hall, CreateHallRequest, CreateEventRequest, CreateSeatsRequest, AddSeatsResponse } from '../modals/admin.models';
 import { EventDetails } from '../modals/events.model';
 
 
@@ -45,4 +45,8 @@ export class AdminService {
   createEvent(request: CreateEventRequest): Observable<EventDetails> {
     return this.http.post<EventDetails>(`${this.apiUrl}/events`, request);
   }
+
+  addSeats(request: CreateSeatsRequest): Observable<AddSeatsResponse> {
+  return this.http.post<AddSeatsResponse>(`${this.apiUrl}/halls/seats`, request);
+}
 }

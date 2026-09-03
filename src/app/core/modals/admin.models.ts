@@ -41,3 +41,18 @@ export interface CreateEventRequest {
   hallId: string;
   categoryId: string;
 }
+
+export interface SeatInput {
+  rowLabel: string;
+  seatNumber: string;
+  seatType: string;
+}
+
+export interface CreateSeatsRequest {
+  hallId: string;
+  seats: SeatInput[];
+}
+
+export interface AddSeatsResponse {
+  addedCount: number;
+}
